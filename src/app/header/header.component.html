@@ -1,0 +1,77 @@
+<header class="w-full fixed top-0 left-0 z-[800] sm:w-auto sm:h-screen">
+    <nav  class="absolute left-0 w-full z-[-1] transition-top ease-in duration-300 px-8" [style.top]="this.statesService.menuDesplegable ? '72px' : '-15rem'">
+        <div class="px-4 pb-16 bg-white shadow-md shadow-black/25 rounded-b h-full w-full">
+            <div *ngIf="this.statesService.account" class="bg-black h-full w-full pt-14 pb-8 flex flex-col gap-2 items-center rounded-b">
+                <a routerLink="/submit" class="flex items-center gap-2 text-white hover:text">
+                    Subir imágen <mat-icon>add_photo_alternate</mat-icon>
+                </a>
+                <a [routerLink]="'/account/' + this.statesService.account.user" class="flex items-center gap-2 text-white hover:text">
+                    Ver cuenta <mat-icon>person</mat-icon>
+                </a>
+                <a (click)="this.statesService.deleteAccountLS()" routerLink="/login" class="flex items-center gap-2 text-white hover:text">
+                    Cerrar sesión <mat-icon>exit_to_app</mat-icon> 
+                </a>
+            </div>
+            <div *ngIf="this.statesService.account === null" class="bg-black h-full w-full pt-14 pb-8 flex flex-col gap-2 items-center rounded-b">
+                <a routerLink="/login" class="flex items-center gap-2 text-white hover:text">
+                    Iniciar sesión <mat-icon>person_add</mat-icon>
+                </a>
+                <a routerLink="/signin" class="flex items-center gap-2 text-white hover:text">
+                    Registrarse <mat-icon>group_add</mat-icon>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="absolute w-full h-6 flex justify-center z-[-1] transition-top ease-in duration-300 sm:hidden" [style.top]="this.statesService.menuDesplegable ? '72px' : '38px'">
+        <div class="bg-zinc-900 w-[35%] h-full rounded-b shadow-md shadow-black/25"></div>
+    </div>
+    <div class="w-full py-4 px-6 flex justify-between items-center bg-zinc-900 shadow-md shadow-black/25 sm:flex-col sm:items-center sm:w-[260px] sm:h-full sm:py-16 sm:px-4">
+        <div class="flex flex-col items-center gap-4">
+            <a *ngIf="this.statesService.account" [routerLink]="'/account/' + this.statesService.account.user" class="hidden sm:flex justify-center items-center w-16 h-16 rounded-full bg-colorOrange-100">
+                <img *ngIf="this.statesService.account && this.statesService.account.imgURL.length !== 0" [src]="this.statesService.account.imgURL" [alt]="'Imágen de ' + this.statesService.account.user" class="w-full h-full object-cover rounded-full">
+                <span *ngIf="this.statesService.account && this.statesService.account.imgURL.length === 0" class="text-[1.6rem] text-white">
+                    {{this.statesService.account.user.charAt(0).toUpperCase()}}
+                </span>
+            </a>
+            <a (click)="this.toHome()" routerLink="/home" class="logo text-2xl text-white">
+                <!--
+                <img src="" alt="Logo de MyPhotoRoom">
+                -->
+                My Photo Room
+            </a>
+        </div>
+        <nav  class="hidden w-full sm:flex sm:flex-col sm:items-center" [style.top]="this.statesService.menuDesplegable ? '72px' : '-15rem'">
+            <div *ngIf="this.statesService.account" class="h-full w-full flex flex-col gap-2 items-center rounded-b">
+                <a routerLink="/submit" class="flex flex-start w-[130px] items-center gap-2 text-white hover:text-color__link-100 transition-colors ease-in duration-300">
+                    <mat-icon>add_photo_alternate</mat-icon> Subir imágen
+                </a>
+                <div class="h-[.05rem] w-full separator2 z-[1]"></div>
+                <a [routerLink]="'/account/' + this.statesService.account.user" class="flex flex-start w-[130px] items-center gap-2 text-white hover:text-color__link-100 transition-colors ease-in duration-300">
+                    <mat-icon>person</mat-icon> Ver cuenta
+                </a>
+                <div class="h-[.05rem] w-full separator2 z-[1]"></div>
+                <a (click)="this.statesService.deleteAccountLS()" routerLink="/login" class="flex flex-start w-[130px] items-center gap-2 text-white hover:text-color__link-100 transition-colors ease-in duration-300">
+                    <mat-icon>exit_to_app</mat-icon>  Cerrar sesión 
+                </a>
+            </div>
+            <div *ngIf="this.statesService.account === null" class="h-full w-full flex flex-col gap-2 items-center rounded-b">
+                <a routerLink="/login" class="flex flex-start w-[130px] items-center gap-2 text-white hover:text-color__link-100 transition-colors ease-in duration-300">
+                    <mat-icon>person_add</mat-icon> Iniciar sesión
+                </a>
+                <div class="h-[.05rem] w-full separator2 z-[1]"></div>
+                <a routerLink="/signin" class="flex flex-start w-[130px] items-center gap-2 text-white hover:text-color__link-100 transition-colors ease-in duration-300">
+                    <mat-icon>group_add</mat-icon> Registrarse
+                </a>
+            </div>
+        </nav>        
+        <button appMenu (clickOutside)="this.statesService.setMenuDesplegable(false)" (click)="this.statesService.setMenuDesplegable(true)" class="relative w-10 h-10 rounded-full bg-white flex justify-center items-center sm:hidden">
+            <img *ngIf="this.statesService.account && this.statesService.account.imgURL.length !== 0" [src]="this.statesService.account.imgURL" class="w-full h-full object-cover rounded-full">
+            <span *ngIf="this.statesService.account && this.statesService.account.imgURL.length === 0" class="text-[1rem]">
+                {{this.statesService.account.user.charAt(0).toUpperCase()}}
+            </span>
+            <mat-icon class="flex justify-center items-center w-full h-full text-zinc-900" *ngIf="!this.statesService.menuDesplegable && this.statesService.account === null">more_vert</mat-icon>
+            <mat-icon class="flex justify-center items-center w-full h-full text-zinc-900" *ngIf="this.statesService.menuDesplegable && this.statesService.account === null">close</mat-icon>
+            <div class="absolute rounded-full w-full h-full"></div>
+        </button>
+    </div>
+</header>

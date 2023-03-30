@@ -1,0 +1,50 @@
+<section class="flex flex-col gap-8 max-w-[480px]">
+    <div infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="2500"
+    [infiniteScrollDisabled]="!this.statesService.existsSubmits"
+    (scrolled)="onScroll()" class="flex flex-col gap-8">
+        <a [routerLink]="'/home/' + publicacion.userRef + '/' + publicacion.imgID.slice(14)" *ngFor="let publicacion of this.statesService.homeSubmits; let i = index" class="flex flex-col gap-4 shadow-xl p-4 bg-white rounded sm:p-8">
+            <div class="flex gap-2 items-center justify-between">
+                <a [routerLink]="'/account/' + publicacion.userRef" class="flex gap-2 items-center">
+                    <div class="relative w-8 h-8 rounded-full bg-black flex justify-center items-center">
+                        <span class="text-[0.8rem] text-white h-full w-full flex flex-col justify-center items-center">
+                            {{publicacion.userRef.charAt(0).toUpperCase()}}
+                        </span>
+                        <img *ngIf="publicacion.userImg && publicacion.userImg.length !== 0" [src]="publicacion.userImg" class="absolute w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="font-bold">
+                        {{this.publicacion.userRef}}
+                    </h3>
+                </a>
+            </div>
+            <div>
+                <img [src]="publicacion.imgURL" [alt]="publicacion.title" class="w-full">
+            </div>
+            <div class="flex flex-col gap-4">
+                <h4 class="text-xl font-black py-2">
+                    {{publicacion.title}}
+                </h4>
+                <div class="h-[.25rem] w-full separator"></div>
+                <div class="flex flex-col gap-4">
+                    <p>
+                        {{publicacion.content}}
+                    </p>
+                    <span class="font-extralight italic">
+                        {{this.publicacion.date.slice(6,8)}} / {{this.publicacion.date.slice(4,6)}} / {{this.publicacion.date.slice(0,4)}}
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <app-loading-message *ngIf="this.statesService.existsSubmits"></app-loading-message>
+    <!--
+    <div *ngIf="!this.statesService.existsSubmits" class="w-full flex flex-col gap-4 items-center py-16">
+        <mat-icon class="scale-[200%]">mood_bad</mat-icon>
+        <small>
+            No se encontraron más publicaciones.
+        </small>
+    </div>
+    -->
+</section>
+<router-outlet></router-outlet>

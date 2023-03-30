@@ -1,0 +1,61 @@
+<section class="h-full flex flex-col">
+  <div class="w-full flex flex-col gap-8 px-4 py-8 bg-white rounded shadow-xl sm:p-16">
+    <form
+      [formGroup]="formGroup"
+      (ngSubmit)="onSubmit()"
+      (change)="setInvalidLogin()"
+      class="flex flex-col gap-8"
+    >
+      <div class="flex flex-col">
+        <label for="userInput" class="flex items-center gap-2 text-xl text-black font-black">Usuario <mat-icon *ngIf="invalidUser" class="text-color__danger-100 pb-7">error_outline</mat-icon></label>
+        <input
+          id="userInput"
+          type="text"
+          placeholder="Ingrese su nombre de usuario"
+          formControlName="user"
+          class="focus:outline-none"
+        />
+        <small
+          class="text-colorRed2-100 font-extralight italic"
+          *ngIf="invalidUser"
+        >
+          Ingrese un nombre de usuario válido
+        </small>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex flex-col w-full">
+          <label for="passwordInput" class="flex items-center gap-2 text-xl text-black font-black">Password <mat-icon *ngIf="invalidPassword" class="text-color__danger-100 pb-7">error_outline</mat-icon></label>
+          <input
+            id="passwordInput"
+            [type]="this.watchPassword === false ? 'password' : 'text'"
+            placeholder="Ingrese su contraseña"
+            formControlName="password"
+            class="focus:outline-none"
+          />
+          <small
+            class="text-colorRed2-100 font-extralight italic"
+            *ngIf="invalidPassword"
+          >
+            Ingrese una contraseña válida
+          </small>
+        </div>
+        <div class="h-[3rem] w-[.25rem] separator"></div>
+        <div class="flex items-center cursor-pointer">
+          <mat-icon *ngIf="this.watchPassword === true" (click)="setWatchPassword()">not_interested</mat-icon>
+          <mat-icon *ngIf="this.watchPassword === false" (click)="setWatchPassword()">remove_red_eye</mat-icon>
+        </div>
+      </div>
+      <small *ngIf="this.invalidLogin.length > 0" class="text-colorRed2-100 font-bold italic">
+        {{ this.invalidLogin }}
+      </small>
+      <input
+        type="submit"
+        value="Iniciar sesión"
+        class="w-full text-center py-2 px-4 outline outline-3 outline-[#f1f5f9] rounded-xl cursor-pointer"
+      />
+    </form>
+    <span class="text-center">
+      En caso de no tener una cuenta, registrate haciendo <a routerLink="/signin" class="text-color__link-100 italic">click aquí</a>.
+    </span>
+  </div>
+</section>

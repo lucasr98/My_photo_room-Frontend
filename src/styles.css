@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,700;0,900;1,200;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Nunito", sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.logo{
+  font-family: 'Kaushan Script', cursive;
+}
+
+.separator{
+  background-image: radial-gradient(#f1f5f9, #f1f5f9, #f1f5f9, transparent);
+}
+
+.separator2{
+  background-image: radial-gradient(#f1f5f9, transparent, transparent);
+}
+
+.loading_icon{
+  clip-path: url(#clipPath__a--64);
+  background: conic-gradient(rgb(255, 0, 25), rgb(255, 195, 0), rgb(255, 255, 45), rgb(140, 255, 0), rgb(0, 255, 135), rgb(0, 145, 255), rgb(155, 0, 255), rgb(255, 0, 50));
+}
+
+.modal_submit__content::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes loadingIcon {
+  0%{
+    rotate: 0deg;
+  }
+  100%{
+    rotate: 360deg;
+  }
+}
+
+@keyframes submitAnimation {
+  0%{
+    opacity: 1;
+    scale: 1;
+  }
+  10%{
+    opacity: 0;
+    scale: 1.25;
+  }
+  10.05%{
+    opacity: 0;
+    scale: 1;
+  }
+  100%{
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+@layer base {
+  :root {
+    --color_a1: 1 31 38;
+    --color_b1: 68 166 130;
+    --color_c1: 242 196 155;
+    --color_d1: 191 172 155;
+    --color_e1: 166 101 78;
+    --color_f1: 217 212 201;
+
+    --color_red1: 255 0 25;
+    --color_orange: 255 195 0;
+    --color_yellow: 255 255 45;
+    --color_green: 140 255 0;
+    --color_skyblue: 0 255 135;
+    --color_blue: 0 145 255;
+    --color_purple: 155 0 255;
+    --color_red2: 255 0 50;
+
+    /* ... */
+  }
+}

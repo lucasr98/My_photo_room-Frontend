@@ -1,0 +1,180 @@
+<section class="h-full flex flex-col">
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    (change)="setInvalidRegister()"
+    class="w-full flex flex-col gap-8 px-4 py-8 bg-white rounded shadow-xl lg:w-[640px] sm:p-16"
+  >
+    <div class="flex flex-col">
+      <label for="userInput" class=" flex items-center gap-2 text-xl text-black font-black"
+        >Usuario 	<mat-icon *ngIf="invalidUser" class="text-color__danger-100 pb-7">error_outline</mat-icon>
+      </label
+      >
+      <input
+        id="userInput"
+        type="text"
+        placeholder="Ingrese un nombre de usuario"
+        formControlName="user"
+        [class.is-invalid]="invalidUser"
+        class="focus:outline-none"
+      />
+      <small
+        *ngIf="invalidUser"
+        class="text-color__danger-100 font-extralight italic"
+      >
+        Ingrese un nombre de usuario válido (Puede contener minúsculas, números, guiones medios, bajos y puntos. No puede contener mayúsculas, signos de exclamaxión ni espacios)
+      </small>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="flex flex-col w-full">
+        <label for="passwordInput" class=" flex items-center gap-2 text-xl text-black font-black"
+          >Password <mat-icon *ngIf="invalidPassword" class="text-color__danger-100 pb-7">error_outline</mat-icon></label
+        >
+        <input
+          id="passwordInput"
+          [type]="this.watchPassword === false ? 'password' : 'text'"
+          placeholder="Ingrese una contraseña"
+          formControlName="password"
+          class="focus:outline-none w-full"
+        />
+        <small
+          *ngIf="invalidPassword"
+          class="text-color__danger-100 font-extralight italic"
+        >
+          Ingrese una contraseña válida (Puede contener minúsculas, números, guiones medios, bajos y puntos. No puede contener mayúsculas, signos de exclamaxión ni espacios)
+        </small>
+      </div>
+      <div class="h-[3rem] w-[.25rem] separator"></div>
+      <div class="flex items-center cursor-pointer">
+        <mat-icon *ngIf="this.watchPassword === true" (click)="setWatchPassword()">not_interested</mat-icon>
+        <mat-icon *ngIf="this.watchPassword === false" (click)="setWatchPassword()">remove_red_eye</mat-icon>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label for="mailInput" class=" flex items-center gap-2 text-xl text-black font-black"
+        >E-mail <mat-icon *ngIf="invalidEmail" class="text-color__danger-100 pb-7">error_outline</mat-icon></label
+      >
+      <input
+        id="mailInput"
+        type="email"
+        placeholder="Ingrese un E-mail"
+        formControlName="email"
+        class="focus:outline-none"
+      />
+      <small
+        *ngIf="invalidEmail"
+        class="text-color__danger-100 font-extralight italic"
+      >
+        Ingrese un E-mail válido (Debe contener @ y un dominio como hotmail.com)
+      </small>
+    </div>
+    <div class="flex flex-col">
+      <label for="nameInput" class=" flex items-center gap-2 text-xl text-black font-black"
+        >Nombre <mat-icon *ngIf="invalidName" class="text-color__danger-100 pb-7">error_outline</mat-icon></label
+      >
+      <input
+        id="nameInput"
+        type="text"
+        placeholder="Ingrese su Nombre"
+        formControlName="name"
+        class="focus:outline-none"
+      />
+      <small
+        *ngIf="invalidName"
+        class="text-color__danger-100 font-extralight italic"
+      >
+        Ingrese un nombre válido
+      </small>
+    </div>
+    <div class="flex flex-col">
+      <label for="lastNameInput" class=" flex items-center gap-2 text-xl text-black font-black"
+        >Apellido <mat-icon *ngIf="invalidLastName" class="text-color__danger-100 pb-7">error_outline</mat-icon></label
+      >
+      <input
+        id="lastNameInput"
+        type="text"
+        placeholder="Ingrese su Apellido"
+        formControlName="lastName"
+        class="focus:outline-none"
+      />
+      <small
+        *ngIf="invalidLastName"
+        class="text-color__danger-100 font-extralight italic"
+      >
+        Ingrese un apellido válido
+      </small>
+    </div>
+    <div class="flex flex-col">
+      <label for="ageInput" class=" flex items-center gap-2 text-xl text-black font-black">Edad <mat-icon *ngIf="invalidAge" class="text-color__danger-100 pb-7">error_outline</mat-icon></label>
+      <input
+        id="ageInput"
+        type="number"
+        max="120"
+        min="18"
+        placeholder="Ingrese su edad"
+        formControlName="age"
+        class="focus:outline-none"
+      />
+      <small
+        *ngIf="invalidAge"
+        class="text-color__danger-100 font-extralight italic"
+      >
+        Ingrese una edad válida (Entre 18 a 120 años)
+      </small>
+    </div>
+    <div class="flex flex-col gap-2">
+      <span class="text-xl text-black font-black">Sexo</span>
+      <div
+        class="w-full flex items-center gap-2 py-2 px-4 outline outline-3 outline-[#f1f5f9] rounded-xl cursor-pointer"
+      >
+        <div class="w-full">
+          <label
+            for="maleInput"
+            (click)="setGenreChecked('male')"
+            [class]="
+              this.genreChecked === 'male' ? 'flex justify-center w-full h-full text-color__link-100 cursor-pointer' : 'flex justify-center w-full h-full text-gray-300 cursor-pointer'
+            "
+            >Masculino</label
+          >
+          <input
+            id="maleInput"
+            type="radio"
+            value="male"
+            formControlName="genre"
+            class="hidden"
+            [checked]="true"
+          />
+        </div>
+        <div class="h-[1.5rem] w-[.5rem] separator"></div>
+        <div class="w-full">
+          <label
+            for="femaleInput"
+            (click)="setGenreChecked('female')"
+            [class]="
+              this.genreChecked !== 'male' ? 'flex justify-center w-full h-full text-color__link-100 cursor-pointer' : 'flex justify-center w-full h-full text-gray-300 cursor-pointer'
+            "
+            >Femenino</label
+          >
+          <input
+            id="femaleInput"
+            type="radio"
+            value="female"
+            formControlName="genre"
+            class="hidden"
+          />
+        </div>
+      </div>
+    </div>
+    <small *ngIf="this.invalidRegister.length > 0" class="text-color__danger-100 font-bold italic">
+      {{ this.invalidRegister }}
+    </small>
+    <input
+      type="submit"
+      value="Registrarse"
+      class="w-full text-center py-2 px-4 outline outline-3 outline-[#f1f5f9] rounded-xl cursor-pointer"
+    />
+    <span class="text-center">
+      En caso de que ya te hayas registrado, iniciá sesión haciendo <a routerLink="/login" class="text-color__link-100 italic">click aquí</a>.
+    </span>
+  </form>
+</section>

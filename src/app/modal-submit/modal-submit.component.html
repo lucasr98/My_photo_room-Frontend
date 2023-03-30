@@ -1,0 +1,75 @@
+<div (click)="closeModal($event)" class="fixed top-0 left-0 h-screen w-full flex flex-col gap-4 justify-center items-center bg-zinc-900/95 backdrop-blur-md z-[9000] p-4 sm:px-16 sm:py-8" id="closeModal">
+    <app-loading-spinner *ngIf="!this.modalData"></app-loading-spinner>
+    <span *ngIf="!this.modalData" class="logo text-2xl text-white">
+        My Photo Room
+    </span>  
+    <!--
+    <a [routerLink]="this.backUrl === 'account' ? '/' + this.backUrl + '/' + this.modalData.userRef : '/' + this.backUrl" class="fixed bg-zinc-900 top-4 right-6 w-10 h-10 rounded-full flex justify-center items-center text-white">
+        <mat-icon>close</mat-icon>    
+    </a>
+    -->
+    <div *ngIf="this.modalData && !this.modalData.message" class="bg-white rounded py-4 flex flex-col gap-4 w-full max-h-full overflow-auto sm:p-0 sm:gap-0 sm:flex-row sm:items-center sm:h-full sm:w-auto sm:bg-black">
+        <div class="flex gap-4 items-center justify-between px-4 sm:hidden">
+            <a [routerLink]="'/account/' + this.modalData.userRef" class="flex gap-2 items-center">
+                <div class="relative w-8 h-8 rounded-full bg-black flex justify-center items-center">
+                    <span class="text-[.8rem] text-white">
+                        {{this.modalData.userRef.charAt(0).toUpperCase()}}
+                    </span>
+                    <img *ngIf="this.modalData.userImg && this.modalData.userImg.length > 0" [src]="this.modalData.userImg" class="absolute w-full h-full object-cover rounded-full">
+                </div>
+                <h3 class="font-bold">
+                    {{this.modalData.userRef}}
+                </h3>
+            </a>
+            <div *ngIf="this.statesService.account && this.modalData.userRef === this.statesService.account.user">
+                <a (click)="deleteSubmitRequest(this.modalData.id, this.modalData.imgID)" [routerLink]="this.backUrl === 'account' ? '/' + this.backUrl + '/' + this.modalData.userRef : '/' + this.backUrl" class="text-colorRed1-100">
+                    Eliminar 
+                </a>
+            </div>
+        </div>
+        <figure class="w-full sm:h-full sm:p-4 sm:max-w-[480px] sm:max-h-[480px] xl:max-w-[840px] xl:max-h-[840px] 2xl:max-w-[1280px] 2xl:max-h-[1280px] xl:p-8">
+            <img [src]="this.modalData.imgURL" [alt]="this.modalData.title" class="object-cover w-full h-full sm:object-contain">
+        </figure>
+        <div class="sm:w-[480px] sm:h-full sm:bg-white sm:flex sm:flex-col sm:justify-between sm:gap-16 sm:p-2 sm:rounded-r xl:p-4">
+            <div class="hidden sm:flex sm:gap-4 sm:items-center sm:justify-between sm:p-2 xl:p-4">
+                <a [routerLink]="'/account/' + this.modalData.userRef" class="flex gap-2 items-center">
+                    <div class="relative w-8 h-8 rounded-full bg-black flex justify-center items-center">
+                        <span class="text-[.8rem] text-white">
+                            {{this.modalData.userRef.charAt(0).toUpperCase()}}
+                        </span>
+                        <img *ngIf="this.modalData.userImg && this.modalData.userImg.length > 0" [src]="this.modalData.userImg" class="absolute w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 class="font-bold">
+                        {{this.modalData.userRef}}
+                    </h3>
+                </a>
+                <a [routerLink]="this.backUrl === 'account' ? '../' : '../../'">
+                    <mat-icon>close</mat-icon>
+                </a>
+            </div>
+            <div class="sm:flex sm:flex-col sm:gap-4 sm:overflow-auto sm:p-2 xl:p-4 modal_submit__content">
+                <div class="flex flex-col gap-4 px-4 sm:px-0">
+                    <h4 class="text-xl font-black py-2">
+                        {{this.modalData.title}}
+                    </h4>
+                    <div class="h-[.25rem] w-full separator"></div>
+                    <div class="flex flex-col gap-4">
+                        <p>
+                            {{this.modalData.content}}
+                        </p>
+                        <span class="font-extralight italic">
+                            {{this.modalData.date.slice(6,8)}} / {{this.modalData.date.slice(4,6)}} / {{this.modalData.date.slice(0,4)}}
+                        </span>
+                    </div>
+                </div>
+                <a *ngIf="this.statesService.account && this.modalData.userRef === this.statesService.account.user" (click)="deleteSubmitRequest(this.modalData.id, this.modalData.imgID)" [routerLink]="this.backUrl === 'account' ? '/' + this.backUrl + '/' + this.modalData.userRef : '/' + this.backUrl" class="hidden sm:flex sm:justify-center sm:py-2 sm:px-4 sm:outline sm:outline-3 sm:outline-[#f1f5f9] sm:rounded-xl sm:text-colorRed1-100">
+                    Eliminar 
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--
+    <app-modal-submit-pc *ngIf="this.modalData && !this.modalData.message"  class="rounded hidden sm:flex sm:items-center sm:h-full sm:w-auto bg-black" [statesService]="statesService" [modalData]="modalData" [backUrl]="backUrl" [closeModal]="closeModal" [deleteSubmitRequest]="deleteSubmitRequest"></app-modal-submit-pc>
+    -->
+    <app-not-found *ngIf="this.modalData && this.modalData.message"></app-not-found>
+</div>

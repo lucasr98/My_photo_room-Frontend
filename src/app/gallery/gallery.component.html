@@ -1,0 +1,40 @@
+<div class="flex flex-col items-center gap-4 w-full">
+    <div *ngIf="this.statesService.userGallery !== 0" class="flex flex-col items-center w-full gap-4 lg:grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="2500"
+        [infiniteScrollDisabled]="!this.existSubmits"
+        (scrolled)="getSubmitsRequest()"
+    >
+        <figcaption *ngFor="let submit of this.statesService.userGallery" class="relative w-full outline outline-2 outline-[#f1f5f9] lg:w-[240px] lg:h-[240px]">
+            <img [src]="submit.imgURL" [alt]="submit.title" class="w-full h-full object-cover">
+            <a [routerLink]="'/account/' + submit.userRef + '/' + submit.imgID.slice(14)" class="opacity-0 hover:opacity-100 absolute flex flex-col justify-end p-4 top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent">
+                <h5 class="text-white w-[75%]">
+                    {{submit.title}}
+                </h5>
+            </a>
+        </figcaption>
+    </div>
+    <div *ngIf="!this.existSubmits && this.statesService.userGallery.length === 0" class="relative w-full h-16 my-16">
+        <div class="absolute bottom-0 left-0 w-full flex flex-col gap-4 items-center">
+            <mat-icon class="scale-[200%]">mood_bad</mat-icon>
+            <small>
+                Aún no haz hecho ninguna publicación
+            </small>
+        </div>
+    </div>
+    <div *ngIf="this.loadingSpinner" class="relative w-full">
+        <app-loading-message></app-loading-message>
+    </div>
+    <!--
+    <div *ngIf="!this.existSubmits && this.statesService.userGallery.length !== 0" class="relative w-full">
+        <div class="absolute bottom-0 left-0 w-full flex flex-col gap-4 items-center">
+            <mat-icon class="scale-[200%]">mood_bad</mat-icon>
+            <small>
+                No se encontraron más publicaciones.
+            </small>
+        </div>
+    </div>
+    -->
+</div>
+
+<router-outlet></router-outlet>
